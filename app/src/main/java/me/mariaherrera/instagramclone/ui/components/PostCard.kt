@@ -1,4 +1,6 @@
 package me.mariaherrera.instagramclone.ui.components
 
-class PostCard {
+import me.mariaherrera.instagramclone.model.Post
+
+class PostCard(post: Post) {
 }

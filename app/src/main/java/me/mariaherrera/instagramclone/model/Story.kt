@@ -7,3 +7,4 @@ data class Story (
     val imageUrl: String,
     val hasSeen: Boolean = false
 )
+
