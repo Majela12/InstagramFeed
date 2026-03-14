@@ -1,5 +1,6 @@
 package me.mariaherrera.instagramclone.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -12,11 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import me.mariaherrera.instagramclone.model.Story
 
 // Fila horizontal de historias
@@ -24,12 +26,12 @@ import me.mariaherrera.instagramclone.model.Story
 fun StoriesRow(stories: List<Story>) {
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 8.dp),
+        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(
             items = stories,
-            key = { story -> story.id }
+            key = { it.id }
         ) { story ->
             StoryItem(story = story)
         }
@@ -37,34 +39,32 @@ fun StoriesRow(stories: List<Story>) {
 }
 
 // Cada historia individual
-
-
-
 @Composable
 fun StoryItem(story: Story) {
+
     val borderBrush = if (!story.hasSeen) {
         Brush.linearGradient(
             colors = listOf(
-                Color(0xFFF69433),
-                Color(0xFFdc2743),
-                Color(0xFFbc1888)
+                Color(0xFFF09433),
+                Color(0xFFDC2743),
+                Color(0xFFBC1888)
             )
         )
     } else {
-        Brush.linearGradient(colors = listOf(Color.LightGray, Color.LightGray))
+        SolidColor(Color.LightGray)
     }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.width(70.dp)
     ) {
+
         Box(
             modifier = Modifier
                 .size(64.dp)
                 .border(
-                    width = 2.dp,
-                    brush = borderBrush,
-                    shape = CircleShape
+                    BorderStroke(2.dp, borderBrush),
+                    CircleShape
                 )
                 .padding(3.dp),
             contentAlignment = Alignment.Center
@@ -79,7 +79,8 @@ fun StoryItem(story: Story) {
             )
         }
 
-        Spacer(Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(4.dp))
+
         Text(
             text = story.username,
             fontSize = 11.sp,
@@ -87,14 +88,4 @@ fun StoryItem(story: Story) {
             overflow = TextOverflow.Ellipsis
         )
     }
-}
-
-@Composable
-fun AsyncImage(
-    model: String,
-    contentDescription: String,
-    modifier: Modifier,
-    contentScale: ContentScale
-) {
-    TODO("Not yet implemented")
 }

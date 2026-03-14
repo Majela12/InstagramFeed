@@ -18,12 +18,4 @@ data class Post (
         val isLiked: Boolean = false
 )
 
-@Composable
-fun PostCard(post: Post) {
-        Column(modifier = Modifier.padding(8.dp)) {
-                Text(text = post.username)
-                Text(text = post.caption)
-                Text(text = "${post.likes} likes")
-        }
-}
 
